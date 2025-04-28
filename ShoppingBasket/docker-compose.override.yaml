@@ -1,0 +1,20 @@
+services:
+  shoppingbasketdatabase:
+    container_name: shoppingbasketdatabase
+    restart: always
+    environment:
+      POSTGRES_USER: ShoppingBasketUser
+      POSTGRES_PASSWORD: ShoppingBasketPassword
+      POSTGRES_DB: ShoppingBasketDb
+    ports:
+      - "5432:5432"
+  shoppingbasketapi:
+    container_name: shoppingbasketapi
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - shoppingbasketdatabase
+    environment:
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ConnectionStrings__MartenEventStore=Host=database;Port=5432;Database=ShoppingBasketDb;Username=ShoppingBasketUser;Password=ShoppingBasketPassword

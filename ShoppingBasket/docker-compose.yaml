@@ -1,0 +1,13 @@
+services:
+  shoppingbasketdatabase:
+    image: postgres:latest    
+    volumes:
+      - ShoppingBasketDb:/var/lib/postgresql/data
+  shoppingbasketapi:
+    image: ${DOCKER_REGISTRY-}api
+    build:
+      context: .
+      dockerfile: ShoppingBasket.API/Dockerfile
+    
+volumes:
+  ShoppingBasketDb:
